@@ -2,8 +2,6 @@
 
 Portafolio personal de **Jhoshef Morillo**, estudiante de Ingeniería de Software (SENATI) enfocado en desarrollo web frontend.
 
-🔗 **Demo:** https://jhoshefmorillo.github.io/portfolio/
-
 ## Sobre el proyecto
 
 Sitio de una sola página construido en **HTML, CSS y JavaScript puro** (sin frameworks), con:
