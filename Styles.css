@@ -1,0 +1,652 @@
+/* ============================================================
+   1. VARIABLES GLOBALES
+   ============================================================ */
+:root {
+  --color-bg: #0f172a;
+  --color-text: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-accent: #64ffda;
+
+  /* Estas dos variables controlan el color de los titulos (h3)
+       y de las palabras en <strong>. Por defecto usan los colores
+       originales (gris / blanco) -- SOLO los temas de color
+       (verde, violeta) las redefinen para pintar todo */
+  --color-emphasis-heading: var(--color-text-muted);
+  --color-emphasis-strong: var(--color-text);
+}
+
+/* ============================================================
+   2. RESET BASICO
+   ============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   3. LAYOUT BASE (BODY - GRID DE 2 COLUMNAS)
+   ============================================================ */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Inter", sans-serif;
+  line-height: 1.7;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  padding: 0 4rem;
+  overflow-y: auto;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   4. BOTONES FIJOS (TEMA E IDIOMA) - ARRIBA DERECHA
+   ============================================================ */
+.header-buttons {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+  z-index: 100;
+}
+
+#lang-btn {
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-text-muted);
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    color 0.3s,
+    border-color 0.3s;
+}
+
+#lang-btn:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* ========================
+   Selector de Estilo (Theme Switcher con <details>/<summary>)
+======================== */
+.theme-switcher {
+  position: relative;
+}
+
+.theme-switcher summary {
+  background: transparent;
+  border: 1px solid var(--color-text-muted);
+  border-radius: 0.25rem;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  transition: border-color 0.3s;
+}
+
+.theme-switcher summary::-webkit-details-marker {
+  display: none;
+}
+
+.theme-switcher summary:hover {
+  border-color: var(--color-accent);
+}
+
+.theme-dot {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: var(--color-accent);
+  box-shadow: 0 0 6px currentColor;
+}
+
+.theme-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  list-style: none;
+  background-color: var(--color-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  min-width: 11rem;
+  z-index: 200;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.theme-menu li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.theme-menu li:hover {
+  background-color: rgba(148, 163, 184, 0.1);
+  color: var(--color-text);
+}
+
+.dot-original {
+  background-color: #64ffda;
+}
+.dot-green {
+  background-color: #10b981;
+}
+.dot-purple {
+  background-color: #9d4edd;
+}
+
+/* ========================
+   Animacion al abrir el menu de temas
+======================== */
+.theme-switcher[open] .theme-menu {
+  animation: menuAparece 0.2s ease forwards;
+}
+
+@keyframes menuAparece {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.theme-switcher[open] .theme-menu li {
+  opacity: 0;
+  animation: itemAparece 0.25s ease forwards;
+}
+
+.theme-switcher[open] .theme-menu li:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.theme-switcher[open] .theme-menu li:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.theme-switcher[open] .theme-menu li:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+@keyframes itemAparece {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ========================
+   Overlay de transicion al cambiar de tema
+======================== */
+#theme-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #000;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+
+#theme-overlay.activo {
+  opacity: 1;
+}
+
+/* ========================
+   Paletas de color por tema
+======================== */
+
+/* ORIGINAL: no se le pasa --color-emphasis-* porque debe
+   quedarse con los valores por defecto definidos en :root */
+body.theme-original {
+  --color-bg: #0a1128;
+  --color-text: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-accent: #64ffda;
+}
+
+body.theme-green {
+  --color-bg: #011912;
+  --color-text: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-accent: #10b981;
+  --color-emphasis-heading: #2dd4bf;
+  --color-emphasis-strong: #2dd4bf;
+}
+
+body.theme-purple {
+  --color-bg: #07050d;
+  --color-text: #f1f5f9;
+  --color-text-muted: #c4b5fd;
+  --color-accent: #9d4edd;
+  --color-emphasis-heading: var(--color-accent);
+  --color-emphasis-strong: var(--color-accent);
+}
+
+/* "Desarrollador Web Frontend" - color solido segun el tema */
+body.theme-green h2#cargo,
+body.theme-purple h2#cargo {
+  color: var(--color-accent);
+}
+
+/* ============================================================
+   5. HEADER - COLUMNA IZQUIERDA (FIJA / STICKY)
+   ============================================================ */
+header {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 6rem 2rem 6rem 2rem;
+  text-align: left;
+}
+
+h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 1.1;
+}
+
+/* "Morillo" siempre blanco puro, en todos los temas */
+.name-accent {
+  color: var(--color-text);
+}
+
+h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-top: 0.5rem;
+}
+
+header > div > p {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  margin-top: 1rem;
+  max-width: 18rem;
+}
+
+/* ============================================================
+   6. NAVEGACION
+   ============================================================ */
+nav {
+  margin-top: 4rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+nav a::before {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 1px;
+  background-color: var(--color-text-muted);
+  transition:
+    width 0.3s,
+    background-color 0.3s;
+}
+
+nav a:hover::before,
+nav a.active::before {
+  width: 4rem;
+  background-color: var(--color-text);
+}
+
+nav a:hover,
+nav a.active {
+  color: var(--color-text);
+}
+
+/* ============================================================
+   7. ICONOS SOCIALES
+   ============================================================ */
+.social-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.3s,
+    border-color 0.3s,
+    background-color 0.3s;
+}
+
+.social-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  filter: brightness(0) invert(0.6);
+  transition:
+    filter 0.3s,
+    transform 0.3s;
+}
+
+.social-icons a:hover .social-icon {
+  filter: brightness(0) invert(1);
+  transform: translateY(-3px);
+}
+
+/* ============================================================
+   8. MAIN - COLUMNA DERECHA
+   ============================================================ */
+main {
+  padding: 6rem 0 6rem 4rem;
+  overflow-y: visible;
+}
+
+/* ============================================================
+   9. SECCIONES (ESTILOS GENERALES COMPARTIDOS)
+   ============================================================ */
+section {
+  min-height: 100vh;
+  margin-bottom: 0;
+  scroll-margin-top: 0;
+}
+
+section h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-emphasis-heading);
+  margin-bottom: 1.5rem;
+}
+
+section p {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+/* ============================================================
+   10. SECCION: ACERCA DE (#about)
+   ============================================================ */
+#about p {
+  margin-bottom: 1.2rem;
+}
+
+#about strong {
+  color: var(--color-emphasis-strong);
+  font-weight: 600;
+}
+
+/* ============================================================
+   11. SECCION: TECNOLOGIAS (#technologies)
+   ============================================================ */
+#technologies {
+  margin-top: 8rem;
+}
+
+/* Titulo "Herramientas" -- antes era un style inline en el HTML */
+#tools-title {
+  margin-top: 2rem;
+}
+
+#technologies ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+#technologies li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: transparent;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: default;
+  transition: all 0.3s;
+}
+
+#technologies li:hover {
+  background-color: rgba(148, 163, 184, 0.08);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+#technologies li img[alt="GitHub"] {
+  filter: brightness(0) invert(1);
+}
+
+#technologies span {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.tech-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* ============================================================
+   12. SECCION: PROYECTOS (#projects)
+   ============================================================ */
+#projects {
+  margin-top: -8rem;
+  padding-top: 9rem;
+}
+
+/* Tarjeta de proyecto -- comparte estilo el <a> (proyecto real)
+   y el <article> (placeholder "Proximamente") */
+.project-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  padding: 1.1rem;
+  border-radius: 0.4rem;
+  background-color: transparent;
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+a.project-item:hover {
+  background-color: rgba(148, 163, 184, 0.08);
+  box-shadow: 28px 16px 50px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.project-item img {
+  width: 9rem;
+  min-width: 9rem;
+  height: 5rem;
+  border-radius: 0.4rem;
+  object-fit: cover;
+  object-position: center;
+  margin-top: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.project-item h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.4;
+  transition: color 0.3s;
+}
+
+a.project-item:hover h4 {
+  color: var(--color-accent);
+}
+
+.project-item p {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  margin-top: 0.8rem;
+  line-height: 1.65;
+}
+
+.project-item ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.project-item ul li span {
+  background-color: #1e293b;
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 2rem;
+}
+
+/* Tarjeta placeholder "Proximamente" */
+.project-item--soon {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.project-item--soon:hover {
+  background-color: rgba(148, 163, 184, 0.08);
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.coming-soon-icon {
+  width: 6rem;
+  min-width: 6rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background-color: #1e293b;
+  color: var(--color-accent);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* ============================================================
+   13. PROYECTOS - BANNER "MAS PROYECTOS PROXIMAMENTE"
+   ============================================================ */
+.projects-footer {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* ============================================================
+   14. RESPONSIVE - MOBILE (max-width: 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* --- Layout general --- */
+  body {
+    grid-template-columns: 1fr;
+    padding: 0 1.5rem;
+  }
+
+  header {
+    position: relative;
+    height: auto;
+    padding: 3rem 0 2rem 0;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  nav {
+    display: none;
+  }
+
+  main {
+    padding: 1rem 0 4rem 0;
+  }
+
+  /* --- Secciones --- */
+  section {
+    min-height: auto;
+    margin-bottom: 4rem;
+    scroll-margin-top: 1rem;
+  }
+
+  #technologies {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 2rem;
+    min-height: auto;
+  }
+
+  #projects {
+    margin-top: 1rem;
+    min-height: auto;
+  }
+
+  .project-item {
+    flex-direction: column;
+  }
+
+  .project-item img {
+    width: 100%;
+    height: 10rem;
+  }
+
+  /* --- Botones e iconos --- */
+  .header-buttons {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .social-icons {
+    margin-top: 2rem;
+  }
+}

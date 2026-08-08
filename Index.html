@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Portafolio de Jhoshef Morillo, estudiante de Ingeniería de Software enfocado en desarrollo web."
+    />
+    <meta name="author" content="Jhoshef Morillo" />
+    <title>Jhoshef Morillo</title>
+
+    <!-- ======================== -->
+    <!-- Open Graph (previsualizacion al compartir el link) -->
+    <!-- Recuerda reemplazar la URL de "og:url" y "og:image"  -->
+    <!-- por tu dominio real cuando publiques el sitio         -->
+    <!-- ======================== -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Jhoshef Morillo — Desarrollador Web Frontend"
+    />
+    <meta
+      property="og:description"
+      content="Portafolio de Jhoshef Morillo, estudiante de Ingeniería de Software enfocado en desarrollo web frontend."
+    />
+    <meta
+      property="og:image"
+      content="https://jhoshefmorillo.github.io/portfolio/img/og-image.png"
+    />
+    <meta
+      property="og:url"
+      content="https://jhoshefmorillo.github.io/portfolio/"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Jhoshef Morillo — Desarrollador Web Frontend"
+    />
+    <meta
+      name="twitter:description"
+      content="Portafolio de Jhoshef Morillo, estudiante de Ingeniería de Software enfocado en desarrollo web frontend."
+    />
+    <meta
+      name="twitter:image"
+      content="https://jhoshefmorillo.github.io/portfolio/img/og-image.png"
+    />
+
+    <!-- ======================== -->
+    <!-- Favicon de portafolio -->
+    <!-- ======================== -->
+    <link rel="icon" href="favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="img/favicon-32x32.png"
+    />
+
+    <!-- ======================== -->
+    <!-- Fuentes -->
+    <!-- ======================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ======================== -->
+    <!-- Estilos -->
+    <!-- ======================== -->
+    <link rel="stylesheet" href="Styles.css" />
+  </head>
+
+  <body>
+    <!-- ======================== -->
+    <!-- Overlay de transicion al cambiar de tema -->
+    <!-- ======================== -->
+    <div id="theme-overlay"></div>
+
+    <!-- ======================== -->
+    <!-- Botones fijos (tema e idioma) -->
+    <!-- ======================== -->
+    <div class="header-buttons">
+      <details class="theme-switcher" id="theme-switcher">
+        <summary id="theme-btn" aria-label="Cambiar estilo">
+          <span class="theme-dot"></span>
+        </summary>
+        <ul id="theme-menu" class="theme-menu">
+          <li data-theme="original">
+            <span class="theme-dot dot-original"></span>
+            <span class="theme-name">Midnight Blue</span>
+          </li>
+          <li data-theme="green">
+            <span class="theme-dot dot-green"></span>
+            <span class="theme-name">Emerald Slate</span>
+          </li>
+          <li data-theme="purple">
+            <span class="theme-dot dot-purple"></span>
+            <span class="theme-name">Minimal Purple</span>
+          </li>
+        </ul>
+      </details>
+      <button id="lang-btn"></button>
+    </div>
+
+    <!-- ======================== -->
+    <!-- Header - Columna izquierda -->
+    <!-- ======================== -->
+    <header>
+      <div class="header-top">
+        <h1>Jhoshef <span class="name-accent">Morillo</span></h1>
+        <h2 id="cargo">Desarrollador Web Frontend</h2>
+        <p id="descripcion">
+          Convierto ideas en soluciones digitales modernas, funcionales y
+          diseñadas para generar resultados reales.
+        </p>
+
+        <!-- Navegacion -->
+        <nav>
+          <ul>
+            <li><a href="#about" id="nav-about">Acerca de</a></li>
+            <li><a href="#technologies" id="nav-tech">Tecnologías</a></li>
+            <li><a href="#projects" id="nav-projects">Proyectos</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Iconos Sociales -->
+      <div class="social-icons">
+        <a
+          href="https://github.com/JhoshefMorillo"
+          target="_blank"
+          rel="noopener"
+          aria-label="GitHub"
+        >
+          <img
+            src="img/github.svg"
+            alt="GitHub"
+            class="social-icon"
+            width="24"
+            height="24"
+          />
+        </a>
+        <a
+          href="https://linkedin.com/in/jhoshefmorillodev"
+          target="_blank"
+          rel="noopener"
+          aria-label="LinkedIn"
+        >
+          <img
+            src="img/linkedin-plain.svg"
+            alt="LinkedIn"
+            class="social-icon"
+            width="24"
+            height="24"
+          />
+        </a>
+        <a
+          href="mailto:jhoshefdev@gmail.com"
+          target="_blank"
+          rel="noopener"
+          aria-label="Correo electrónico"
+          id="gmail-link"
+        >
+          <img
+            src="img/gmail.svg"
+            alt="Correo"
+            class="social-icon"
+            width="24"
+            height="24"
+          />
+        </a>
+      </div>
+    </header>
+
+    <!-- ======================== -->
+    <!-- Main - Columna derecha -->
+    <!-- ======================== -->
+    <main>
+      <!-- ======================== -->
+      <!-- Seccion: Acerca de -->
+      <!-- ======================== -->
+      <section id="about">
+        <h3 id="about-title"></h3>
+        <p id="about-p1"></p>
+        <p id="about-p2"></p>
+        <p id="about-p3"></p>
+        <p id="about-p4"></p>
+      </section>
+
+      <!-- ======================== -->
+      <!-- Seccion: Tecnologias -->
+      <!-- ======================== -->
+      <section id="technologies">
+        <h3 id="tech-title">Tecnologías</h3>
+        <ul>
+          <li>
+            <img
+              src="img/html_icon.svg"
+              alt="HTML5"
+              class="tech-icon"
+              width="24"
+              height="24"
+            /><span>HTML5</span>
+          </li>
+          <li>
+            <img
+              src="img/css_icon.svg"
+              alt="CSS3"
+              class="tech-icon"
+              width="24"
+              height="24"
+            /><span>CSS3</span>
+          </li>
+          <li>
+            <img
+              src="img/js_icon.svg"
+              alt="JavaScript"
+              class="tech-icon"
+              width="24"
+              height="24"
+            /><span>JavaScript</span>
+          </li>
+        </ul>
+
+        <h3 id="tools-title">Herramientas</h3>
+        <ul>
+          <li>
+            <img
+              src="img/github.svg"
+              alt="GitHub"
+              class="tech-icon"
+              width="24"
+              height="24"
+            /><span>GitHub</span>
+          </li>
+          <li>
+            <img
+              src="img/git.svg"
+              alt="Git"
+              class="tech-icon"
+              width="24"
+              height="24"
+            /><span>Git</span>
+          </li>
+          <li>
+            <img
+              src="img/claude.svg"
+              alt="Claude"
+              class="tech-icon"
+              width="24"
+              height="24"
+            /><span>Claude AI</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ======================== -->
+      <!-- Seccion: Proyectos -->
+      <!-- ======================== -->
+      <section id="projects">
+        <h3 id="projects-title">Proyectos</h3>
+
+        <!-- ============================================ -->
+        <!-- PROYECTO 1                                    -->
+        <!-- ============================================ -->
+        <a
+          href="https://jhoshefmorillo.github.io/img-tool/"
+          target="_blank"
+          rel="noopener"
+          class="project-item"
+        >
+          <img
+            src="img/img_proyectos/proyecto_1.png"
+            alt="Vista previa del proyecto 1"
+            width="192"
+            height="96"
+            loading="lazy"
+          />
+          <div class="project-info">
+            <h4 id="proj1-title"></h4>
+            <p id="proj1-desc"></p>
+            <ul>
+              <li><span>HTML</span></li>
+              <li><span>CSS</span></li>
+              <li><span>JavaScript</span></li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- ============================================ -->
+        <!-- PROYECTO 2                                    -->
+        <!-- ============================================ -->
+        <a
+          href="https://jhoshefmorillo.github.io/jm-qr/"
+          target="_blank"
+          rel="noopener"
+          class="project-item"
+        >
+          <img
+            src="img/img_proyectos/Proyecto_2.png"
+            alt="Vista previa del proyecto 2"
+            width="192"
+            height="96"
+            loading="lazy"
+          />
+          <div class="project-info">
+            <h4 id="proj2-title"></h4>
+            <p id="proj2-desc"></p>
+            <ul>
+              <li><span>HTML</span></li>
+              <li><span>CSS</span></li>
+              <li><span>JavaScript</span></li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- ============================================ -->
+        <!-- PROYECTO 3                                    -->
+        <!-- ============================================ -->
+        <a
+          href="https://jhoshefmorillo.github.io/curymarka-sac/"
+          target="_blank"
+          rel="noopener"
+          class="project-item"
+        >
+          <img
+            src="img/img_proyectos/Proyecto_3.png"
+            alt="Vista previa del proyecto 3"
+            width="192"
+            height="96"
+            loading="lazy"
+          />
+          <div class="project-info">
+            <h4 id="proj3-title"></h4>
+            <p id="proj3-desc"></p>
+            <ul>
+              <li><span>HTML</span></li>
+              <li><span>CSS</span></li>
+              <li><span>JavaScript</span></li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- ============================================ -->
+        <!-- PROYECTO 4                                    -->
+        <!-- ============================================ -->
+        <a
+          href="https://jhoshefmorillo.github.io/maison-yhon/"
+          target="_blank"
+          rel="noopener"
+          class="project-item"
+        >
+          <img
+            src="img/img_proyectos/Proyecto_4.png"
+            alt="Vista previa del proyecto 4"
+            width="192"
+            height="96"
+            loading="lazy"
+          />
+          <div class="project-info">
+            <h4 id="proj4-title"></h4>
+            <p id="proj4-desc"></p>
+            <ul>
+              <li><span>HTML</span></li>
+              <li><span>CSS</span></li>
+              <li><span>JavaScript</span></li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- ============================================ -->
+        <!-- PROYECTO 5: Proximamente                      -->
+        <!-- Cuando tengas el proyecto:                    -->
+        <!-- 1. Cambia <article> por <a href="TU_LINK"     -->
+        <!--    target="_blank" rel="noopener">            -->
+        <!-- 2. Reemplaza el <div class="coming-soon-icon"> -->
+        <!--    por <img src="img/TU_IMAGEN.png"           -->
+        <!--    alt="descripcion" />                       -->
+        <!-- 3. Cambia el titulo, la descripcion y los tags -->
+        <!-- ============================================ -->
+        <article class="project-item project-item--soon">
+          <div class="coming-soon-icon">&lt;/&gt;</div>
+          <div class="project-info">
+            <h4 id="proj-soon-title"></h4>
+            <p id="proj-soon-desc"></p>
+            <ul>
+              <li><span id="proj-soon-tag1"></span></li>
+              <li><span id="proj-soon-tag2"></span></li>
+              <li><span id="proj-soon-tag3"></span></li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Banner: Mas proyectos proximamente -->
+        <div class="projects-footer" id="projects-footer"></div>
+      </section>
+    </main>
+
+    <!-- ======================== -->
+    <!-- Scripts -->
+    <!-- ======================== -->
+    <script src="Scripts.js" defer></script>
+  </body>
+</html>
